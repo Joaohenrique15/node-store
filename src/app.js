@@ -10,15 +10,21 @@ mongoose.connect('mongodb://localhost:27017/NodeStr');
 
 //Carrega as models
 const Product = require('./models/product');
+const Customer = require('./models/customer');
+const Order = require('./models/order');
 
 //Carrega as rotas
 const index = require('./routes/index')
 const products = require('./routes/productRouter')
+const customers = require('./routes/customerRouter')
+const orders = require('./routes/orderRouter')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', index);
 app.use('/products', products);
+app.use('/customers', customers);
+app.use('/orders', orders);
 
 module.exports = app;

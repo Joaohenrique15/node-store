@@ -1,7 +1,5 @@
 'use-strict'
 
-const mongoose = require("mongoose");
-const Product = mongoose.model('Product');
 const ValidationContract = require('../validators/fluentValidator');
 const repository = require("../repositories/productRepository");
 
@@ -40,10 +38,23 @@ exports.get = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
     try {
+
         var data = await repository.getById(req.params.id);
+
+
+        if (data == null || data == undefined) {
+            res.status(404).send({
+                message: 'Produto não localizado'
+            });
+
+            return;
+        }
+
         res.status(200).send(data);
+
     } catch (e) {
         res.status(500).send({
+            data: data,
             message: 'Falha ao processar sua requisição'
         });
     }
