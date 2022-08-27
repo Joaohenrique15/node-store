@@ -3,10 +3,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const config = require('./config');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/NodeStr');
+mongoose.connect(config.connectionString);
 
 //Carrega as models
 const Product = require('./models/product');
