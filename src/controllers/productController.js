@@ -67,6 +67,18 @@ exports.getByTag = (req, res, next) => {
 
 exports.post = (req, res, next) => {
     var product = new Product(req.body);
+
+    let contract = new ValidationContract();
+    contract.hasMinLen(req.body.title, 3, 'O título deve conter pelo menos 3 caracteres');
+    contract.hasMinLen(req.body.slug, 3, 'O título deve conter pelo menos 3 caracteres');
+    contract.hasMinLen(req.body.description, 3, 'O título deve conter pelo menos 3 caracteres');
+
+    // Se os dados forem inválidos
+    if (!contract.isValid()) {
+        res.status(400).send(contract.errors()).end();
+        return;    
+    }
+
     product.save()
         .then(x => {
             res.status(201).send({
