@@ -6,6 +6,11 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+mongoose.connect('mongodb://localhost:27017/NodeStr');
+
+//Carrega as models
+const Product = require('./models/product');
+
 //Carrega as rotas
 const index = require('./routes/index')
 const products = require('./routes/productRouter')
